@@ -35,9 +35,9 @@ func nodesTableSchema() *memdb.TableSchema {
 				Name:         indexID,
 				AllowMissing: false,
 				Unique:       true,
-				Indexer: &memdb.StringFieldIndex{
-					Field:     "Node",
-					Lowercase: true,
+				Indexer: indexerSingle{
+					readIndex:  readIndex(indexFromQuery),
+					writeIndex: writeIndex(indexFromNode),
 				},
 			},
 			"uuid": {
